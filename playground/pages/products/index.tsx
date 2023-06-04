@@ -1,4 +1,8 @@
+import { Card } from "antd";
+import Image from "next/image";
 import React, { useState, useEffect } from "react";
+
+const { Meta } = Card;
 
 const Products = () => {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -18,7 +22,23 @@ const Products = () => {
       <h1>Products</h1>
       <ul>
         {products.map((product) => (
-          <li key={product.id}>{product.name}</li>
+          <Card
+            key={product.id}
+            hoverable
+            style={{ width: 340, position: "relative" }}
+            cover={
+              <div>
+                <Image
+                  alt={product.name}
+                  src={product.image}
+                  width={340}
+                  height={340}
+                />
+              </div>
+            }
+          >
+            <Meta title={product.name} description={`$${product.price}`} />
+          </Card>
         ))}
       </ul>
 
