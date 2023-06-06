@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { Col, InputNumber, Row, Typography } from "antd";
+import { Col, InputNumber, Row, Space, Typography } from "antd";
 import Image from "next/image";
 import { SpaceContext } from "antd/es/space";
 
@@ -42,6 +42,13 @@ const ProductItem = () => {
             <span>Amount: </span>
             <InputNumber min={1} defaultValue={1} size="large" />
           </div>
+        </Col>
+      </Row>
+      <Space />
+      <Row justify={"center"} style={{ gap: "30px" }}>
+        <Col span={24} style={{ maxWidth: "655px" }}>
+          <Title level={3}>About this avocado</Title>
+          <p>{product?.attributes.description}</p>
         </Col>
       </Row>
     </div>
