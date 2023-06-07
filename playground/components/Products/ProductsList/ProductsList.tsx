@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Col, Row } from "antd";
 
-import Product from "@components/Product/Product";
+import ProductCard from "@components/Products/ProductCard/ProductCard";
 
 const ProductsList = () => {
   const [products, setProducts] = useState<TProduct[]>([]);
@@ -20,7 +20,7 @@ const ProductsList = () => {
     <Row gutter={[30, 30]} justify={"center"}>
       {products.map((product) => (
         <Col key={product.id}>
-          <Product product={product} />
+          <ProductCard product={product} />
         </Col>
       ))}
     </Row>

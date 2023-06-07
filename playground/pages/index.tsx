@@ -1,4 +1,4 @@
-import ProductsList from "@components/ProductsList/ProductsList";
+import ProductsList from "@components/Products/ProductsList/ProductsList";
 import React from "react";
 
 const Home = () => {

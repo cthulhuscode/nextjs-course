@@ -9,7 +9,7 @@ interface ProductProps {
   product: TProduct;
 }
 
-const Product = ({ product }: ProductProps) => {
+const ProductCard = ({ product }: ProductProps) => {
   const router = useRouter();
 
   const handleClick = (id: string) => router.push(`/products/${id}`);
@@ -38,4 +38,4 @@ const Product = ({ product }: ProductProps) => {
   );
 };
 
-export default Product;
+export default ProductCard;
