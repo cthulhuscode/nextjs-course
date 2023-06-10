@@ -1,14 +1,14 @@
 import React from "react";
-import { Col, InputNumber, List, Row, Space, Typography } from "antd";
+import { Col, InputNumber, List, Row, Space, Typography, Button } from "antd";
 import Image from "next/image";
 
 const { Title } = Typography;
 
 type ProductDetailsProps = {
-    product: TProduct
-}
+  product: TProduct;
+};
 
-const ProductDetails = ({product}: ProductDetailsProps) => {
+const ProductDetails = ({ product }: ProductDetailsProps) => {
   return (
     <div>
       <Row gutter={[35, 0]} justify={"center"}>
@@ -29,6 +29,9 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span>Amount: </span>
             <InputNumber min={1} defaultValue={1} size="large" />
+            <Button type="primary" size="large">
+              Add to cart
+            </Button>
           </div>
         </Col>
       </Row>
@@ -41,7 +44,6 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
       </Row>
       <Row justify={"center"}>
         <Col style={{ width: "655px" }}>
-
           {/* Details list */}
           <List itemLayout="horizontal">
             <List.Item>
@@ -65,11 +67,10 @@ const ProductDetails = ({product}: ProductDetailsProps) => {
               />
             </List.Item>
           </List>
-
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default ProductDetails
+export default ProductDetails;
