@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, InputNumber, List, Row, Space, Typography, Button } from "antd";
 import Image from "next/image";
+import { addToCart, useCart } from "store/Cart";
 
 const { Title } = Typography;
 
@@ -8,7 +9,13 @@ type ProductDetailsProps = {
   product: TProduct;
 };
 
-const ProductDetails = ({ product }: ProductDetailsProps) => {
+const ProductDetails = ({ product }: ProductDetailsProps) => {  
+  const { dispatch } = useCart();  
+  const [amount, setAmount] = useState(1);
+
+  const handleAddToCartClick = () =>     
+    dispatch(addToCart({product, amount}));      
+
   return (
     <div>
       <Row gutter={[35, 0]} justify={"center"}>
@@ -28,8 +35,8 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
           <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
             <span>Amount: </span>
-            <InputNumber min={1} defaultValue={1} size="large" />
-            <Button type="primary" size="large">
+            <InputNumber min={1} defaultValue={1} size="large" value={amount} onChange={(num) => setAmount(num ? num : 1)}/>
+            <Button type="primary" size="large" onClick={handleAddToCartClick}>
               Add to cart
             </Button>
           </div>
