@@ -43,9 +43,11 @@ const LayoutFC: React.FC<Props> = ({ children }) => {
               </div>
             </Link>
           </div>
-          <Button type="default" icon={<ShoppingCartOutlined />} size="large">
-            Cart
-          </Button>
+          <Link href={"/cart"}>
+            <Button type="default" icon={<ShoppingCartOutlined />} size="large">
+              Cart
+            </Button>
+          </Link>
         </Header>
 
         <Content style={{ padding: "50px" }}>{children}</Content>
