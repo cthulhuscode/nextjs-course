@@ -1,0 +1,30 @@
+.cartItem{
+  height: 140px;
+  width: 100%;
+  background-color: white;
+  
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.09) 0px 3px 12px;  
+
+  position: relative;
+}
+
+.cartItem__info{
+  padding-top: 20px;
+}
+
+.cartItem__close{
+  position: absolute;
+  top: 15px;  
+  right: 20px;
+  cursor: pointer;  
+  background-color: transparent;
+  border: none;
+  width: 20px;
+  height: 20px;
+}
+
+.cartItem__close:hover{
+  font-weight: bolder;
+  color: red;    
+}
