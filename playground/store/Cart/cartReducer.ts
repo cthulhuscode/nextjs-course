@@ -1,25 +1,28 @@
-import { stat } from "fs";
-import { TAddToCart, TRemoveProductFromCart, TSetItemAmount } from "./actionTypes";
+import {
+  TAddToCart,
+  TRemoveProductFromCart,
+  TSetItemAmount,
+} from "./actionTypes";
 import { Action, State } from "./cartContext";
 
-export function cartReducer(state: State, action: Action) { 
-
+export function cartReducer(state: State, action: Action) {
   switch (action.type) {
     case TAddToCart: {
-      const { product, amount } = action.payload;      
-      const productExists = state.items?.find((item) => item.product.id === product.id);
+      const { product, amount } = action.payload;
+      const productExists = state.items?.find(
+        (item) => item.product.id === product.id
+      );
 
       let newState: State = {
         items: [],
         count: 0,
-        totalPrice: 0
+        totalPrice: 0,
       };
-      
-      if(!productExists && state.items.length === 0){
+
+      if (!productExists && state.items.length === 0) {
         const newItem = { product, amount, price: amount * product.price };
         newState = { ...state, items: [newItem] };
-      }
-      else if (!productExists) {
+      } else if (!productExists) {
         const newItem = { product, amount, price: amount * product.price };
         newState = { ...state, items: [...state.items, newItem] };
       } else {
@@ -34,7 +37,10 @@ export function cartReducer(state: State, action: Action) {
           price: product.price * newAmount,
         };
 
-        newState = { ...state, items: [...cartWithoutCurrentProduct, itemUpdated] };
+        newState = {
+          ...state,
+          items: [...cartWithoutCurrentProduct, itemUpdated],
+        };
       }
 
       // Calculate the amount of items in the cart
@@ -56,7 +62,9 @@ export function cartReducer(state: State, action: Action) {
         price: product.price * amount,
       };
 
-      const itemIndex = state.items.findIndex(item => item.product.id === product.id);
+      const itemIndex = state.items.findIndex(
+        (item) => item.product.id === product.id
+      );
       const cartWithoutCurrentProduct = state.items?.filter(
         (item) => item.product.id !== product.id
       );
@@ -65,8 +73,8 @@ export function cartReducer(state: State, action: Action) {
 
       const newState = {
         ...state,
-        items: cartWithoutCurrentProduct
-      }
+        items: cartWithoutCurrentProduct,
+      };
 
       newState.count = countCartItems(newState);
       newState.totalPrice = getCartTotalPrice(newState);
@@ -75,7 +83,7 @@ export function cartReducer(state: State, action: Action) {
     }
 
     case TRemoveProductFromCart: {
-      const { product, amount, price } = action.payload;      
+      const { product, amount, price } = action.payload;
 
       const cartWithoutCurrentProduct = state.items?.filter(
         (item) => item.product.id !== product.id
@@ -85,8 +93,8 @@ export function cartReducer(state: State, action: Action) {
         ...state,
         count: state.count - amount,
         totalPrice: state.totalPrice - price,
-        items: [...cartWithoutCurrentProduct]
-      }
+        items: [...cartWithoutCurrentProduct],
+      };
 
       return newState;
     }
@@ -97,10 +105,10 @@ export function cartReducer(state: State, action: Action) {
   }
 }
 
-function countCartItems(state: State){
-  return state.items.map(item => item.amount).reduce((a,b) => a + b,0);
+function countCartItems(state: State) {
+  return state.items.map((item) => item.amount).reduce((a, b) => a + b, 0);
 }
 
-function getCartTotalPrice(state: State){
-  return state.items.map(item => item.price).reduce((a,b) => a + b, 0);
+function getCartTotalPrice(state: State) {
+  return state.items.map((item) => item.price).reduce((a, b) => a + b, 0);
 }
