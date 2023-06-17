@@ -5,7 +5,7 @@ import ProductDetails from "@components/Products/ProductDetails/ProductDetails";
 const ProductItem = () => {
   const [product, setProduct] = useState<TProduct>();
   const router = useRouter();
-  const { id } = router.query;
+  const { id } = router.query;  
 
   const getEntry = () =>
     fetch(`/api/avocados/${id}`)
