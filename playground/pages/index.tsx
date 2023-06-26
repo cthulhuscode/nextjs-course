@@ -1,11 +1,11 @@
 import ProductsList from "@components/Products/ProductsList/ProductsList";
-import { InferGetServerSidePropsType } from "next";
+import { InferGetStaticPropsType } from "next";
 import React from "react";
 
 /**
- * This is executed in the server
+ * This page is created as static file in the build process
  */
-export const getServerSideProps = async (params) => {
+export const getStaticProps = async (params) => {
   const res = await fetch(
     "https://avocados-nextjs-livid.vercel.app/api/avocados/"
   );
@@ -18,7 +18,7 @@ export const getServerSideProps = async (params) => {
 
 const Home = ({
   productsList,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <div>
       <ProductsList productsList={productsList} />
