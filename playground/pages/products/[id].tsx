@@ -1,23 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import React from "react";
 import ProductDetails from "@components/Products/ProductDetails/ProductDetails";
+import { GetStaticProps, GetStaticPaths } from "next";
 
-const ProductItem = () => {
-  const [product, setProduct] = useState<TProduct>();
-  const router = useRouter();
-  const { id } = router.query;  
 
-  const getEntry = () =>
-    fetch(`/api/avocados/${id}`)
-      .then((res) => res.json())
-      .then((res) => setProduct(res.data))
-      .catch((error) => console.log(error));
+/**
+ * This method is required for dynamic pages
+ */
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(
+    "https://avocados-nextjs-livid.vercel.app/api/avocados/"
+  );
+  const { data: productsList }: TAPIAvoResponse = await res.json();  
 
-  useEffect(() => {
-    id && getEntry();
-  }, [id]);
+  const paths: {params: {id: string}}[] = productsList.map(
+    ({id}) => ({params: {id}})
+  );
 
-  if (!product) return;
+  return {    
+    paths,
+    // Incremental Static Generation
+    /**
+     * fallback: any page that is not specified within these paths will give 404
+     */
+    fallback: false
+  }
+}
+
+/**
+ * This page is created as static file in the build process
+ */
+export const getStaticProps: GetStaticProps = async (context) => {
+  const { params } = context;
+  const id = params?.id as string;
+  
+  const res = await fetch(
+    `https://avocados-nextjs-livid.vercel.app/api/avocados/${id}`
+  );
+  const {data: product}: {data: TProduct} = await res.json(); 
+
+  return {
+    props: { product },
+  };
+};
+
+const ProductItem = ({product}) => {  
+  if (!product) return;   
 
   return (
     <ProductDetails product={product} />

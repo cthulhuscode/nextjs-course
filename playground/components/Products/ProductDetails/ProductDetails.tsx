@@ -46,7 +46,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
       <Row justify={"center"} style={{ gap: "30px", marginTop: "30px" }}>
         <Col span={24} style={{ maxWidth: "655px" }}>
           <Title level={3}>About this avocado</Title>
-          <p>{product?.attributes.description}</p>
+          <p>{product?.attributes?.description}</p>
         </Col>
       </Row>
       <Row justify={"center"}>
@@ -56,21 +56,21 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             <List.Item>
               <List.Item.Meta
                 title={<a href="https://ant.design">Shape</a>}
-                description={product.attributes.shape}
+                description={product?.attributes?.shape}
               />
             </List.Item>
 
             <List.Item>
               <List.Item.Meta
                 title={<a href="https://ant.design">Hardiness</a>}
-                description={product.attributes.hardiness}
+                description={product?.attributes?.hardiness}
               />
             </List.Item>
 
             <List.Item>
               <List.Item.Meta
                 title={<a href="https://ant.design">Taste</a>}
-                description={product.attributes.taste}
+                description={product?.attributes?.taste}
               />
             </List.Item>
           </List>
